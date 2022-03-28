@@ -4,6 +4,14 @@ const randomNum = (min, max ) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+
+let obj = {
+    'Weak' : 'bg-yellow-600',
+    'Medium': 'bg-orange-600',
+    'Strong': 'bg-green-600', 
+    'Too weak': 'bg-red-600',
+  }
+
 export const generatePwd = (hasNumbers, hasSymbols, hasLowerCase, hasUpperCase, count) => {
     let password = "";
     const numbers = "0123456789".split('').sort(() => Math.random() - 0.5);
@@ -25,6 +33,6 @@ export const generatePwd = (hasNumbers, hasSymbols, hasLowerCase, hasUpperCase, 
         password += pickFromArray[randomIndex][randomNum(0, pickFromArray[randomIndex].length - 1)];
     }
 
-    return {password, passwordStrength: passwordStrength(password).value};
+    return {password, passwordStrength: passwordStrength(password).value, badgeColor: obj[passwordStrength(password).value]};
    
 }

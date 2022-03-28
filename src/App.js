@@ -3,28 +3,53 @@ import { generatePwd } from './PasswordGenerator';
 
 import './App.css';
 
+// Toggle
+import { Toggle } from './components/Toggle';
 
 function App() {
 
-  const hasNumbers = useRef(); //hasNumbers.current.checked
-  const hasSymbols = useRef(); //hasSymbols.current.checked
-  const hasUpperCase = useRef(); //hasUppercase.current.checked
-  const hasLowerCase = useRef(); //hasLowerCase.current.checked
+  const hasNumbers = useRef(); 
+  const hasSymbols = useRef();
+  const hasUpperCase = useRef();
+  const hasLowerCase = useRef(); 
 
-  const count = useRef(); //count.current.value
-  const password = useRef(); //password.current.value
+  const count = useRef(); 
+  const password = useRef();
   const form = useRef();
   const copyBtn= useRef();
   const strength = useRef();
 
+  const [badgeColor, setBadgeColor] = useState('');
 
+  // Error States
   const [countError, setCountError] = useState(false);
   const [copyError, setCopyError] = useState(true);
   const [checkedError, setCheckedError] = useState(false);
 
+  // Toggle Data
+  let toggleData = [
+  { label: 'Include Numbers',
+    name: 'numbers',
+    reference: hasNumbers
+  },
 
-  const [badgeColor, setBadgeColor] = useState('');
+  { label: 'Include Symbols',
+    name: 'symbols',
+    reference: hasSymbols
+  },
 
+  { label: 'Include Uppercase',
+    name: 'uppercase',
+    reference: hasUpperCase
+  },
+
+  { label: 'Include Lowercase',
+    name: 'lowercase',
+    reference: hasLowerCase
+  }
+  ]
+
+  // Method Called on click of Generate Button
   const generatePassword = () => {
     setCountError(false);
     setCheckedError(false);
@@ -46,21 +71,13 @@ function App() {
       setCopyError(false);
       password.current.textContent = returnedObj.password;
       strength.current.textContent = returnedObj.passwordStrength;
-
-      if(returnedObj.passwordStrength === 'Weak'){
-        setBadgeColor('bg-yellow-600')
-      } else if(returnedObj.passwordStrength === 'Medium'){
-        setBadgeColor('bg-orange-600')
-      } else if(returnedObj.passwordStrength === 'Strong'){
-        setBadgeColor('bg-green-600')
-      } else {
-        setBadgeColor('bg-red-600')
-      }
+      setBadgeColor(returnedObj.badgeColor);
 
     }
 
   }
 
+  // Method called on click of Copy Button
   const copyPassword = () => {
     if(password.current.textContent !== ''){
       navigator.clipboard.writeText(password.current.textContent);
@@ -86,66 +103,15 @@ function App() {
 
       <div className="px-10">
      <form ref={form}>
-      <div className="flex items-center w-full mb-5">
-      
-      <label htmlFor="numbers" className="flex items-center cursor-pointer w-full">
-      <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl  font-medium">
-          Include Numbers
-        </div>
-        <div className="relative ml-auto">
-          <input type="checkbox" id="numbers" className="sr-only" name="numbers" ref={hasNumbers} />
-          <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
-          <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-        </div>
-       
-      </label>
-      </div>
 
-      <div className="flex items-center justify-center w-full mb-5">
-      
-      <label htmlFor="symbols" className="flex items-center cursor-pointer w-full">
-      <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
-          Include Symbols
-        </div>
-        <div className="relative ml-auto">
-          <input type="checkbox" id="symbols" className="sr-only" name="symbols" ref={hasSymbols}/>
-          <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
-          <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-        </div>
-        
-      </label>
-      </div>
-
-      <div className="flex items-center justify-center w-full mb-5">
-      
-      <label htmlFor="uppercase" className="flex items-center cursor-pointer w-full">
-      <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
-          Include Uppercase
-        </div>
-        <div className="relative ml-auto">
-          <input type="checkbox" id="uppercase" className="sr-only" name="uppercase" ref={hasUpperCase}/>
-          <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
-          <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-        </div>
-        
-      </label>
-      </div>
-
-      <div className="flex items-center justify-center w-full mb-5">
-      
-      <label htmlFor="lowercase" className="flex items-center cursor-pointer w-full">
-      <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
-          Include Lowercase
-        </div>
-        <div className="relative ml-auto">
-          <input type="checkbox" id="lowercase" className="sr-only" name="lowercase" ref={hasLowerCase}/>
-          <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
-          <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-        </div>
-        
-      </label>
-      </div>
-
+      {toggleData.map((data,i) => (
+        <Toggle 
+             key={i}
+            label={data.label}
+            name={data.name}
+            reference={data.reference}
+      />
+      ))}
       <div className="flex items-center justify-center w-full mb-5">
       
       <label htmlFor="count" className="flex items-center justify-center w-full">
@@ -171,11 +137,9 @@ function App() {
       </main>
       </div>
       
-      
-
-<hr className="mt-20 border-gray-200 sm:mx-auto dark:border-gray-700 " />
-<span className="block text-sm text-gray-500 text-center dark:text-gray-400 py-10">Created by <a className='underline decoration-sky-500 decoration-wavy decoration-2' href="https://github.com/itsarvindhere">Arvind Rana</a>
-</span>
+      <hr className="mt-20 border-gray-200 sm:mx-auto dark:border-gray-700 " />
+      <span className="block text-sm text-gray-500 text-center dark:text-gray-400 py-10">Created by <a className='underline decoration-sky-500 decoration-wavy decoration-2' href="https://github.com/itsarvindhere">Arvind Rana</a>
+      </span>
 
     </div>
   );
