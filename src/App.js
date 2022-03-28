@@ -25,18 +25,14 @@ function App() {
       copyBtn.current.textContent = "Copy";
     }
     if(count.current.value === ''){
-      count.current.value = '6';
+      count.current.value = '8';
     }
-    if(+count.current.value < 6 || +count.current.value > 50){
+    if(+count.current.value < 8 || +count.current.value > 64){
       setCountError(true);
     }  else {
       password.current.textContent = generatePwd(hasNumbers.current.checked, hasSymbols.current.checked, +count.current.value);
       setCopyError(false);
     }
-
-   
-      
-    
 
   }
 
@@ -99,12 +95,12 @@ function App() {
       <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
            Characters
         </div>
-          <input type="number" id="count" name="count" min="6" max={50} className="text-s p-2 w-[50px] sm:w-[100px] ring-slate-900/10 shadow-sm rounded-md bg-slate-800 ring-0 highlight-white/5" onChange = {() => setCountError(false)} ref={count} placeholder="6" required/>
+          <input type="number" id="count" name="count" min="8" max="64" className="text-s p-2 w-[50px] sm:w-[100px] ring-slate-900/10 shadow-sm rounded-md bg-slate-800 ring-0 highlight-white/5" onChange = {() => setCountError(false)} ref={count} placeholder="8" required/>
         
       </label>
      
       </div>
-      {countError && <p className='text-red-600'>Enter a number between 6 and 50!</p> }
+      {countError && <p className='text-red-600'>Enter a number between 8 and 64!</p> }
       </form>
       </div>
 
