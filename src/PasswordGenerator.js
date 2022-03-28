@@ -4,14 +4,16 @@ const randomNum = (min, max ) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export const generatePwd = (hasNumbers, hasSymbols, count) => {
+export const generatePwd = (hasNumbers, hasSymbols, hasLowerCase, hasUpperCase, count) => {
     let password = "";
     const numbers = "0123456789".split('').sort(() => Math.random() - 0.5);
     const lowercase = "abcdefghijklmnopqrstuvwxyz".split('').sort(() => Math.random() - 0.5);
     const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').sort(() => Math.random() - 0.5);
     const symbols = `!"#$%&'()*+,-./:;<=>?@[]^_\`{|}~`.split('').sort(() => Math.random() - 0.5);
 
-    const pickFromArray = [lowercase,uppercase];
+    const pickFromArray = [];
+    if(hasLowerCase) pickFromArray.push(lowercase);
+    if(hasUpperCase) pickFromArray.push(uppercase);
     if(hasNumbers) pickFromArray.push(numbers);
     if(hasSymbols) pickFromArray.push(symbols);
 
