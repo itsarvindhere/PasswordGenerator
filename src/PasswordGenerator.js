@@ -1,4 +1,4 @@
-
+import {passwordStrength} from 'check-password-strength';
 
 const randomNum = (min, max ) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -23,6 +23,6 @@ export const generatePwd = (hasNumbers, hasSymbols, count) => {
         password += pickFromArray[randomIndex][randomNum(0, pickFromArray[randomIndex].length - 1)];
     }
 
-    return password;
+    return {password, passwordStrength: passwordStrength(password).value};
    
 }

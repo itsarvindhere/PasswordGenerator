@@ -13,11 +13,12 @@ function App() {
   const password = useRef(); //password.current.value
   const form = useRef();
   const copyBtn= useRef();
+  const strength = useRef();
+
 
   const [countError, setCountError] = useState(false);
   const [copyError, setCopyError] = useState(true);
-
-
+  const [badgeColor, setBadgeColor] = useState('');
 
   const generatePassword = () => {
     setCountError(false);
@@ -30,8 +31,19 @@ function App() {
     if(+count.current.value < 8 || +count.current.value > 64){
       setCountError(true);
     }  else {
-      password.current.textContent = generatePwd(hasNumbers.current.checked, hasSymbols.current.checked, +count.current.value);
+     let returnedObj = generatePwd(hasNumbers.current.checked, hasSymbols.current.checked, +count.current.value);
       setCopyError(false);
+      password.current.textContent = returnedObj.password;
+      strength.current.textContent = returnedObj.passwordStrength;
+
+      if(returnedObj.passwordStrength === 'Weak'){
+        setBadgeColor('bg-red-600')
+      } else if(returnedObj.passwordStrength === 'Medium'){
+        setBadgeColor('bg-orange-600')
+      } else if(returnedObj.passwordStrength === 'Strong'){
+        setBadgeColor('bg-green-600')
+      }  
+
     }
 
   }
@@ -53,7 +65,9 @@ function App() {
       </header>
 
       <main className="main mx-auto mt-20 px-4 py-10 bg-[#131b2e] w-[90%] sm:w-[75%] text-center rounded flex flex-col items-center text-white">
-      <div className="resize-none text-s flex items-center justify-center text-center h-[100px] w-[90%]  ring-slate-900/10 shadow-sm rounded-md bg-slate-800 ring-0 highlight-white/5 mb-10 cursor-pointer" disabled rows="3" spellCheck="false" >
+      <div className="relative resize-none text-s flex items-center justify-center text-center h-[100px] w-[90%]  ring-slate-900/10 shadow-sm rounded-md bg-slate-800 ring-0 highlight-white/5 mb-10 cursor-pointer" disabled rows="3" spellCheck="false" >
+      <span className={`absolute top-2 left-2 inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-10 rounded-full ${badgeColor}`} ref={strength}></span>
+
         <p ref={password}  className="w-full px-2 break-words"></p>
       </div>
 
@@ -103,7 +117,6 @@ function App() {
       {countError && <p className='text-red-600'>Enter a number between 8 and 64!</p> }
       </form>
       </div>
-
       <div className="flex gap-10">
          <button className=" bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-lg mt-10 disabled:cursor-not-allowed disabled:bg-sky-700 hover:none" onClick={generatePassword}>Generate</button>
 
