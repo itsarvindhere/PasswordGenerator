@@ -92,7 +92,7 @@ function App() {
       <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl  font-medium">
           Include Numbers
         </div>
-        <div className="relative">
+        <div className="relative ml-auto">
           <input type="checkbox" id="numbers" className="sr-only" name="numbers" ref={hasNumbers} />
           <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
           <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
@@ -107,7 +107,7 @@ function App() {
       <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
           Include Symbols
         </div>
-        <div className="relative">
+        <div className="relative ml-auto">
           <input type="checkbox" id="symbols" className="sr-only" name="symbols" ref={hasSymbols}/>
           <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
           <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
@@ -122,7 +122,7 @@ function App() {
       <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
           Include Uppercase
         </div>
-        <div className="relative">
+        <div className="relative ml-auto">
           <input type="checkbox" id="uppercase" className="sr-only" name="uppercase" ref={hasUpperCase}/>
           <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
           <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
@@ -137,7 +137,7 @@ function App() {
       <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
           Include Lowercase
         </div>
-        <div className="relative">
+        <div className="relative ml-auto">
           <input type="checkbox" id="lowercase" className="sr-only" name="lowercase" ref={hasLowerCase}/>
           <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
           <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
@@ -149,10 +149,10 @@ function App() {
       <div className="flex items-center justify-center w-full mb-5">
       
       <label htmlFor="count" className="flex items-center justify-center w-full">
-      <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl font-medium">
+      <div className="mr-2 sm:mr-10 text-gray-500 text- sm:text-2xl font-medium">
            Characters
         </div>
-          <input type="number" id="count" name="count" min="8" max="64" className="text-s p-2 w-[50px] sm:w-[100px] ring-slate-900/10 shadow-sm rounded-md bg-slate-800 ring-0 highlight-white/5" onChange = {() => setCountError(false)} ref={count} placeholder="8" required/>
+          <input type="number" id="count" name="count" min="8" max="64" className="ml-auto text-s p-2 w-[50px] sm:w-[100px] ring-slate-900/10 shadow-sm rounded-md bg-slate-800 ring-0 highlight-white/5" onChange = {() => setCountError(false)} ref={count} placeholder="8" required/>
         
       </label>
      
