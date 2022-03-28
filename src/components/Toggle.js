@@ -1,3 +1,5 @@
+import './Toggle.css';
+
 export const Toggle = ({name,label,reference}) => {
   return (
     <div className="flex items-center w-full mb-5">
