@@ -3,9 +3,6 @@ import { generatePwd } from './PasswordGenerator';
 
 import './App.css';
 
-// Toggle
-import { Toggle } from './components/Toggle';
-
 function App() {
 
   const hasNumbers = useRef(); 
@@ -105,12 +102,21 @@ function App() {
      <form ref={form}>
 
       {toggleData.map((data,i) => (
-        <Toggle 
-             key={i}
-            label={data.label}
-            name={data.name}
-            reference={data.reference}
-      />
+
+      <div key={i} className="flex items-center w-full mb-5">
+      
+      <label htmlFor={data.name} className="flex items-center cursor-pointer w-full">
+      <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl  font-medium">
+          {data.label}
+        </div>
+        <div className="relative ml-auto">
+          <input type="checkbox" id={data.name} className="sr-only" name={data.name} ref={data.reference} />
+          <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
+          <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+        </div>
+       
+       </label>
+       </div>
       ))}
       <div className="flex items-center justify-center w-full mb-5">
       
