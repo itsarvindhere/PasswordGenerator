@@ -4,7 +4,7 @@ export const Toggle = ({name,label,reference}) => {
   return (
     <div className="flex items-center w-full mb-5">
       
-      <label htmlFor={name}className="flex items-center cursor-pointer w-full">
+      <label htmlFor={name} className="flex items-center cursor-pointer w-full">
       <div className="mr-2 sm:mr-10 text-gray-500 text-md sm:text-2xl  font-medium">
           {label}
         </div>
